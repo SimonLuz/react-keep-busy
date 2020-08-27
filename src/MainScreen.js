@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import SingleList from './SingleList';
+import PracMain from './PracMain';
 
 
 class MainScreen extends Component {
+
+
 
   render() {
 

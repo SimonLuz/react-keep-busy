@@ -7,21 +7,24 @@ class SingleList extends Component {
     super(props);
     this.state = {
       value: '',
+      email: '',
+      password: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
-    console.log(this)
-    const res = e.target.value;
-    this.setState({ value: res })
+    const val = e.target.value;
+    const name = e.target.name;
+    this.setState({ [name]: val })
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(`You typed: ${this.state.value}`);
-    this.setState({ value: ' ' })
+    for (let i in this.state) {
+      this.setState({ [i]: ''})
+    }
   }
 
   render() {
@@ -29,12 +32,42 @@ class SingleList extends Component {
     return (
       <div>
         <form onSubmit={ this.handleSubmit }>
-          <input 
-            type='text' 
-            value={this.state.value} 
-            onChange={ this.handleChange }
+          <label htmlFor='password'>
+            <input
+              id='password'
+              type='password'
+              placeholder='password'
+              value= { this.state.password }
+              name='password'
+              onChange={ this.handleChange }
             >
-          </input>
+            </input>
+          </label>
+          <label htmlFor='text'>
+            <input 
+              id='text'
+              type='text' 
+              value={this.state.value} 
+              onChange={ this.handleChange }
+              placeholder='value'
+              name='value'
+              >
+            </input>
+          </label>
+          <label htmlFor='email'>
+            <input 
+              id='email'
+              type='email'
+              placeholder='email'
+              value={ this.state.email }
+              name='email'
+              onChange={ this.handleChange }
+            />
+          </label>
+          
+         
+         
+
           <button>Submit!</button>  
         </form>
       </div>
