@@ -17,16 +17,18 @@ class PracSub extends Component {
   handleChange(e) {
     const name = e.target.name;
     const val = e.target.value;
-    console.log(`this is ${name}: ${ val}`)
+    // console.log(`this is ${name}: ${ val}`)
     this.setState({ [name]: val})
   }
 
   handleSubmit(e) {
-
+    e.preventDefault();
+    this.props.addProduct(this.state)
+    this.setState({product: ''})
+    this.setState({qty: ''})
   }
 
   render() {
-
     return(
       <form onSubmit={ this.handleSubmit }>
         <label htmlFor='product'>Product
@@ -48,6 +50,7 @@ class PracSub extends Component {
           >
           </input>
         </label>
+        <button>Submit</button>
       </form>
     )
   }
