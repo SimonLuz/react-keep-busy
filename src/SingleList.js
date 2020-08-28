@@ -64,9 +64,6 @@ class SingleList extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          
-         
-         
 
           <button>Submit!</button>  
         </form>
