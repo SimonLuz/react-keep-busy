@@ -1,76 +1,37 @@
 import React, { Component } from 'react';
+import SingleForm from './SingleForm';
+import SingleTask from './SingleTask';
+import uuid from 'uuid/v4';
 
 
 class SingleList extends Component {
-
-  constructor(props) {
+  /* constructor(props) {
     super(props);
+
     this.state = {
-      value: '',
-      email: '',
-      password: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(e) {
-    const val = e.target.value;
-    const name = e.target.name;
-    this.setState({ [name]: val })
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    for (let i in this.state) {
-      this.setState({ [i]: ''})
+      tasks: '',
     }
-  }
+
+  } */
 
   render() {
+    const { title, tasks } = this.props
 
-    return (
+
+    return(
       <div>
-        <form onSubmit={ this.handleSubmit }>
-          <label htmlFor='password'>
-            <input
-              id='password'
-              type='password'
-              placeholder='password'
-              value= { this.state.password }
-              name='password'
-              onChange={ this.handleChange }
-            >
-            </input>
-          </label>
-          <label htmlFor='text'>
-            <input 
-              id='text'
-              type='text' 
-              value={this.state.value} 
-              onChange={ this.handleChange }
-              placeholder='value'
-              name='value'
-              >
-            </input>
-          </label>
-          <label htmlFor='email'>
-            <input 
-              id='email'
-              type='email'
-              placeholder='email'
-              value={ this.state.email }
-              name='email'
-              onChange={ this.handleChange }
-            />
-          </label>
-
-          <button>Submit!</button>  
-        </form>
+        <h3>{title}</h3>
+        <ul>
+          {tasks.map(el => <SingleTask 
+            task={el} 
+            key={uuid()
+            }
+            /> )}
+        </ul>
       </div>
-    );
+    )
   }
-}
 
+}
 
 export default SingleList;
