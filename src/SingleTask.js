@@ -2,9 +2,13 @@ import React from 'react';
 
 
 function SingleTask(props) {
-  console.log(props)
+
   return(
-    <li>{props.task}</li>
+    <div>
+      <button>Edit</button>
+      <button onClick={ () => props.delete(props.id) }>X</button>
+      <li>{props.task}</li>
+    </div>
   )
 }
 

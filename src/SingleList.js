@@ -15,18 +15,19 @@ class SingleList extends Component {
   } */
 
   render() {
-    const { title, tasks } = this.props
-
+    const { title, tasks } = this.props;
 
     return(
       <div>
         <h3>{title}</h3>
         <ul>
           {tasks.map(el => <SingleTask 
-            task={el} 
-            key={uuid()
-            }
-            /> )}
+            task={el.task} 
+            key={el.id}
+            delete={this.props.deleteTask}
+            id={el.id}
+            /> 
+          )}
         </ul>
       </div>
     )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SingleList from './SingleList';
 import SingleForm from './SingleForm';
+import uuid from 'uuid/v4';
 
 
 class MainScreen extends Component {
@@ -13,9 +14,10 @@ class MainScreen extends Component {
           tasks: []
         }
       ] */
-      tasks: []
+      tasks: [{task: 'vacuum', id: uuid()}]
     }
     this.handleAddTask = this.handleAddTask.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleAddTask(task) {
@@ -23,8 +25,20 @@ class MainScreen extends Component {
       tasks: [...st.tasks, task]
     }))
   }
+  
+  handleDelete(id) {
+    this.setState( st => ({
+      tasks: st.tasks.filter(el => el.id !== id) 
+    }))
+    console.log(id)
+  }
 
   render() {
+    /* const singleList = this.state.tasks.map(el => (
+      <SingleList 
+        tasks={el.task}
+      />
+    )) */
 
     return (
       <div>
@@ -35,6 +49,7 @@ class MainScreen extends Component {
         <SingleList 
           tasks={this.state.tasks}
           title='Home Works'
+          deleteTask={this.handleDelete}
         />
       </div>
 
