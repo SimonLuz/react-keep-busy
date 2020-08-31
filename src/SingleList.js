@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
-import SingleForm from './SingleForm';
 import SingleTask from './SingleTask';
-import uuid from 'uuid/v4';
 
 
 class SingleList extends Component {
-  /* constructor(props) {
-    super(props);
-
-    this.state = {
-      tasks: '',
-    }
-
-  } */
 
   render() {
     const { title, tasks } = this.props;
@@ -26,6 +16,7 @@ class SingleList extends Component {
             key={el.id}
             delete={this.props.deleteTask}
             id={el.id}
+            updateTask={this.props.updateTask}
             /> 
           )}
         </ul>

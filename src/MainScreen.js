@@ -8,16 +8,17 @@ class MainScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      /* lists: [
-        {
-          name: 'Home',
-          tasks: []
-        }
-      ] */
-      tasks: [{task: 'vacuum', id: uuid()}]
+      tasks: [
+        // {
+        //   task: 'vacuum', 
+        //   id: uuid(),
+        // }
+      ],
+
     }
     this.handleAddTask = this.handleAddTask.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdateTask = this.handleUpdateTask.bind(this);
   }
 
   handleAddTask(task) {
@@ -30,7 +31,12 @@ class MainScreen extends Component {
     this.setState( st => ({
       tasks: st.tasks.filter(el => el.id !== id) 
     }))
-    console.log(id)
+  }
+
+  handleUpdateTask(obj) {
+    const { task, id } = obj;
+    const newState = this.state.tasks.map(el => el.id === id ? {...el, task: task} : el );
+    this.setState({ tasks: newState })
   }
 
   render() {
@@ -50,6 +56,7 @@ class MainScreen extends Component {
           tasks={this.state.tasks}
           title='Home Works'
           deleteTask={this.handleDelete}
+          updateTask={this.handleUpdateTask}
         />
       </div>
 
