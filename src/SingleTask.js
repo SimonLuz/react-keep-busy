@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './SingleTask.css';
 
 
 class SingleTask extends Component {
@@ -7,10 +8,12 @@ class SingleTask extends Component {
     this.state = {
       task: this.props.task,
       isShowing: false,
+      completed: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCompleted = this.handleCompleted.bind(this);
   }
 
   handleChange(e) {
@@ -25,6 +28,10 @@ class SingleTask extends Component {
     e.preventDefault();
     this.props.updateTask({ task: this.state.task, id: this.props.id });
     this.setState({ isShowing: !this.state.isShowing })
+  }
+
+  handleCompleted() {
+    this.setState({ completed: !this.state.completed })
   }
 
   render() {
@@ -45,7 +52,12 @@ class SingleTask extends Component {
         <div>
           <button onClick={ this.toggleForm }>Edit</button>
           <button onClick={ () => this.props.delete(this.props.id) }>X</button>
-          <li>{this.props.task}</li>
+          <li 
+            className={this.state.completed ? 'completed' : ``}
+            onClick={this.handleCompleted}
+          >
+            {this.props.task}
+          </li>
         </div>
       );
     }

@@ -7,7 +7,8 @@ class SingleForm extends Component {
     super(props);
     this.state = {
       task: '',
-      id: ''
+      id: '',
+      completed: false,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);

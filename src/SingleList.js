@@ -17,6 +17,7 @@ class SingleList extends Component {
             delete={this.props.deleteTask}
             id={el.id}
             updateTask={this.props.updateTask}
+            // completed={this.props.completed}
             /> 
           )}
         </ul>
