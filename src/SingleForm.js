@@ -28,19 +28,22 @@ class SingleForm extends Component {
   render() {
 
     return(
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor='task'></label>
-        <input
-          type='text'
-          value={this.state.task}
-          name='task'
-          placeholder='task'
-          onChange={this.handleChange}
-        >
-        </input>
-        <button>Submit</button>
+      <div className='SingleForm'>
+        <form onSubmit={this.handleSubmit}>
+          <p>New Task</p>
+          <label htmlFor='task'></label>
+          <input
+            type='text'
+            value={this.state.task}
+            name='task'
+            placeholder='task'
+            onChange={this.handleChange}
+          >
+          </input>
+          <button>Submit</button>
 
-      </form>
+        </form>
+      </div>
     )
   }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SingleList from './SingleList';
 import SingleForm from './SingleForm';
 import uuid from 'uuid/v4';
+import './MainScreen.css';
 
 
 class MainScreen extends Component {
@@ -47,19 +48,24 @@ class MainScreen extends Component {
     )) */
 
     return (
-      <div>
-        <h1> Here we go React!</h1>
-        <SingleForm 
-          addTask={this.handleAddTask}
-        />
-        <SingleList 
-          tasks={this.state.tasks}
-          title='Home Works'
-          deleteTask={this.handleDelete}
-          updateTask={this.handleUpdateTask}
-          // completed={this.handleCompleted}
-        />
+      <div className='main-container'>
+        <div className='singleList-container'>
+          <div className='SingleList-title'>
+            <h1> Home Works <span>A simple React List App</span></h1>
+          </div>
+          <SingleList 
+            tasks={this.state.tasks}
+            // title='Home Works'
+            deleteTask={this.handleDelete}
+            updateTask={this.handleUpdateTask}
+            // completed={this.handleCompleted}
+          />
+          <SingleForm 
+            addTask={this.handleAddTask}
+          />
+        </div>
       </div>
+      
 
     );
   }

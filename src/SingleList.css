@@ -1,0 +1,33 @@
+/************** SINGLE LIST ************/
+
+/* :root {
+  --list-padding: 1rem;
+} */
+
+.singleList-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 400px;
+  min-height: 200px;
+  background-color: #ff6666;
+  box-shadow: -1rem -1rem 0 0 rgba(10,10,10, 0.1)
+}
+
+.singleList-container ul {
+  list-style: none;
+}
+
+.SingleList-title h1 {
+  font-weight: normal;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding: var(--padding-main);
+}
+
+.SingleList-title h1 span {
+  display: block;
+  font-size: 0.8rem;
+  
+}

@@ -38,7 +38,7 @@ class SingleTask extends Component {
     let result;
     if (this.state.isShowing) {  
       result = (
-        <form onSubmit={ this.handleSubmit }>
+        <form onSubmit={ this.handleSubmit } className='SingleTask-form'>
           <input 
             onChange={this.handleChange}
             name='task'
@@ -49,15 +49,18 @@ class SingleTask extends Component {
       );
     } else {
       result = (
-        <div>
-          <button onClick={ this.toggleForm }>Edit</button>
-          <button onClick={ () => this.props.delete(this.props.id) }>X</button>
+        <div className='task-container'>
+         
           <li 
-            className={this.state.completed ? 'completed' : ``}
+            className={`task ${this.state.completed ? 'completed' : ''}`}
             onClick={this.handleCompleted}
           >
             {this.props.task}
           </li>
+          <div className='btn-container'>
+            <button onClick={ this.toggleForm }><i className='fas fa-edit' /></button>
+            <button onClick={ () => this.props.delete(this.props.id) }><i className='fas fa-trash' /></button>
+          </div>
         </div>
       );
     }
