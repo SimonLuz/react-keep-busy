@@ -47,12 +47,48 @@
   cursor: pointer;
   color: inherit;
   margin: 3px;
+  font-weight: 100;
 }
 
 .SingleTask-form {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 100%;
+  background-color: rgba(255,255,255, .2);
+  padding-left: var(--padding-main);
+  padding-right: var(--padding-main);
+  padding-top: var(--padding-small);
+  padding-bottom: var(--padding-small);
+  margin-bottom: .1rem;
+
 }
 
-.SingleTask-form label {
-  min-width: 100%;
+.SingleTask-form input {
+  height: 1.5rem;
+  flex-basis: 80%;
+  font-family: inherit;
+  outline: none;
+  border: none;
 }
+
+.SingleTask-form input:focus {
+
+  outline: none;
+}
+
+.SingleTask-form button {
+  height: 1.5rem;
+  flex-basis: 20%;
+  border: 1px solid rgba(255,255,255, .3);
+  background: #ff6666;
+  color: white;
+  font-family: inherit;
+  transition: background 0.2s ease-out;
+}
+
+.SingleTask-form button:hover {
+  background: red;
+}
+

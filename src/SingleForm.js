@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'uuid/v4';
+import './SingleForm.css';
 
 
 class SingleForm extends Component {
@@ -31,16 +32,19 @@ class SingleForm extends Component {
       <div className='SingleForm'>
         <form onSubmit={this.handleSubmit}>
           <p>New Task</p>
-          <label htmlFor='task'></label>
-          <input
-            type='text'
-            value={this.state.task}
-            name='task'
-            placeholder='task'
-            onChange={this.handleChange}
-          >
-          </input>
-          <button>Submit</button>
+          <div className='input-container'>
+            <label htmlFor='task'></label>
+            <input
+              type='text'
+              value={this.state.task}
+              name='task'
+              placeholder='task'
+              onChange={this.handleChange}
+            >
+            </input>
+            <button>Submit</button>
+          </div>
+          
 
         </form>
       </div>

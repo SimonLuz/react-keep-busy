@@ -23,7 +23,9 @@
   font-size: 2.5rem;
   letter-spacing: 1px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  padding: var(--padding-main);
+  /* padding: var(--padding-main); */
+  padding-bottom: 0;
+  margin: 1.5rem;
 }
 
 .SingleList-title h1 span {
