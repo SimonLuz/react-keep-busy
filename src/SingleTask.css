@@ -50,6 +50,11 @@
   font-weight: 100;
 }
 
+.btn-container button:active,
+.btn-container button:focus {
+  outline: none;
+}
+
 .SingleTask-form {
   display: flex;
   justify-content: space-between;

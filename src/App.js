@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import MainScreen from './MainScreen';
+import ListContainer from './ListContainer';
 
 
 function App() {
   return (
     <div className="App">
-      <MainScreen />
+      <ListContainer />
     </div>
 
   );

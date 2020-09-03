@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SingleList from './SingleList';
 import SingleForm from './SingleForm';
 import uuid from 'uuid/v4';
-import './MainScreen.css';
+import './ListContainer.css';
 
 
 class MainScreen extends Component {
@@ -15,7 +15,6 @@ class MainScreen extends Component {
     this.handleAddTask = this.handleAddTask.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
-    // this.handleCompleted = this.handleCompleted.bind(this);
   }
 
   handleAddTask(task) {
@@ -36,17 +35,9 @@ class MainScreen extends Component {
     this.setState({ tasks: newState })
   }
 
-/*   handleCopleted(id) {
-  
-  }  */
 
   render() {
-    /* const singleList = this.state.tasks.map(el => (
-      <SingleList 
-        tasks={el.task}
-      />
-    )) */
-
+  
     return (
       <div className='main-container'>
         <div className='singleList-container'>

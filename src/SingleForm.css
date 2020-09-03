@@ -43,6 +43,11 @@
   transition: background 0.2s ease-out;
 }
 
+.input-container button:focus,
+.input-container button:active {
+  outline: none;
+}
+
 .input-container button:hover {
   background: rgb(204, 54, 54);
 }
