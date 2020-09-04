@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 import SingleList from './SingleList';
 import SingleForm from './SingleForm';
+import TitleForm from './TitleForm';
 import uuid from 'uuid/v4';
 import './ListContainer.css';
 
 
-class MainScreen extends Component {
+class ListContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [ ],
+      tasks: [
+        {
+          title:'Title here...',
+          titleCompleted: true,
+          id: uuid(),
+        }
+       ],
 
     }
     this.handleAddTask = this.handleAddTask.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
+    this.handleEditTitle = this.handleEditTitle.bind(this);
+    this.handleToggleTitle = this.handleToggleTitle.bind(this);
   }
 
   handleAddTask(task) {
@@ -35,15 +44,36 @@ class MainScreen extends Component {
     this.setState({ tasks: newState })
   }
 
+  handleEditTitle(title, id) {
+
+    console.log('handleEditTitle', title, id)
+    this.setState( st => ({
+      tasks: st.tasks.map(el => el.id === id ? { ...el, title:title, titleCompleted: true }: el )
+    }) 
+    )
+  }
+
+  handleToggleTitle(id) {
+    console.log('handleToggleTitle', id)
+    this.setState( st => ({
+      tasks: st.tasks.map(el => el.id === id ? { ...el, titleCompleted: false } : el )
+    })
+    )
+  }
 
   render() {
   
     return (
       <div className='main-container'>
         <div className='singleList-container'>
-          <div className='SingleList-title'>
-            <h1> Home Works <span>A simple React List App</span></h1>
-          </div>
+          <TitleForm 
+            title={this.state.tasks[0].title}
+            editTitle={this.handleEditTitle}
+            titleCompleted={this.state.tasks[0].titleCompleted}
+            key={this.state.tasks[0].id}
+            id={this.state.tasks[0].id}
+            toggleTitleForm={this.handleToggleTitle}
+          />
           <SingleList 
             tasks={this.state.tasks}
             // title='Home Works'
@@ -63,4 +93,4 @@ class MainScreen extends Component {
 }
 
 
-export default MainScreen;
+export default ListContainer;
