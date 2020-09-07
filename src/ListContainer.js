@@ -70,10 +70,9 @@ class ListContainer extends Component {
   }
 
   handleEditTitle(title, id) {
-
     console.log('handleEditTitle', title, id)
     this.setState( st => ({
-      lists: st.lists.map(el => el.id === id ? { ...el, title:title, titleCompleted: true }: el )
+      lists: st.lists.map(el => el.listID === id ? { ...el, title:title, titleCompleted: true }: el )
     }) 
     )
   }
@@ -81,49 +80,17 @@ class ListContainer extends Component {
   handleToggleTitle(id) {
     console.log('handleToggleTitle', id)
     this.setState( st => ({
-      tasks: st.lists.map(el => el.id === id ? { ...el, titleCompleted: false } : el )
+      lists: st.lists.map(el => (
+        el.listID === id ? 
+        { ...el, titleCompleted: false } :
+         el 
+        )
+      )
     })
     )
   }
 
   render() {
-
-/*     console.log(this.state)
-    let lists = [
-      {
-        title:'Title here...',
-        titleCompleted: true,
-        listID: 11,
-        tasks: [
-          { task: 'vacuum', id: uuid()}
-        ]
-      },
-      {
-        title:'Title here...',
-        titleCompleted: true,
-        listID: 22,
-        tasks: [
-          { task: 'praca', id: 221}
-        ]
-      } 
-     ];
-     console.log('LISTA', lists)
-     lists = lists.map(list => {
-       if (list.listID === 22) {
-         return list.tasks.map(task => {
-           if (task.id === 221) {
-             return {...task, task: 'praca JEST'}
-           }
-         })
-       } else {
-         return list;
-       }
-     })
-     console.log('LISTA 222', lists) */
-
-     console.log(this.state.lists)
-     console.log(this.state.lists[0].tasks)
-
 
 
     return (
