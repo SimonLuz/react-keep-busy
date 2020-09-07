@@ -26,7 +26,7 @@ class SingleTask extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateTask({ task: this.state.task, id: this.props.id });
+    this.props.updateTask({ task: this.state.task, taskID:this.props.taskID, listID: this.props.listID });
     this.setState({ isShowing: !this.state.isShowing })
   }
 
@@ -35,6 +35,7 @@ class SingleTask extends Component {
   }
 
   render() {
+    const taskData = this.props;
     let result;
     if (this.state.isShowing) {  
       result = (
@@ -59,7 +60,7 @@ class SingleTask extends Component {
           </li>
           <div className='btn-container'>
             <button onClick={ this.toggleForm }><i className='fas fa-edit' /></button>
-            <button onClick={ () => this.props.delete(this.props.id) }><i className='fas fa-trash' /></button>
+            <button onClick={ () => this.props.delete(taskData) }><i className='fas fa-trash' /></button>
           </div>
         </div>
       );

@@ -6,8 +6,8 @@ import './SingleList.css';
 class SingleList extends Component {
 
   render() {
-    const { title, tasks } = this.props;
-
+    const { tasks, listID } = this.props;
+    console.log(this.props)
     return(
       <div className='SingleList'>
         {/* <h1>{title} <span>A simple React List App</span></h1> */}
@@ -16,7 +16,8 @@ class SingleList extends Component {
             task={el.task} 
             key={el.id}
             delete={this.props.deleteTask}
-            id={el.id}
+            taskID={el.id}
+            listID={listID}
             updateTask={this.props.updateTask}
             // completed={this.props.completed}
             /> 

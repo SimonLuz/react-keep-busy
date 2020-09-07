@@ -8,7 +8,7 @@ class SingleForm extends Component {
     super(props);
     this.state = {
       task: '',
-      id: '',
+      // id: '',
       completed: false,
     }
 
@@ -17,12 +17,12 @@ class SingleForm extends Component {
   }
 
   handleChange(e) {
-    this.setState({ task: e.target.value, id: uuid() })
+    this.setState({ task: e.target.value })
   }
   
   handleSubmit(e) {
     e.preventDefault();
-    this.props.addTask(this.state);
+    this.props.addTask({ newTask: this.state.task, taskID: uuid(), listID: this.props.listID } );
     this.setState({ task: '' });
   }
 

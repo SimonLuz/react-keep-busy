@@ -10,11 +10,14 @@ class ListContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [
+      lists: [
         {
           title:'Title here...',
           titleCompleted: true,
-          id: uuid(),
+          listID: uuid(),
+          tasks: [
+            { task: 'vacuum', id: uuid()}
+          ]
         }
        ],
 
@@ -26,29 +29,51 @@ class ListContainer extends Component {
     this.handleToggleTitle = this.handleToggleTitle.bind(this);
   }
 
-  handleAddTask(task) {
-    this.setState(st => ({
-      tasks: [...st.tasks, task]
-    }))
+  handleAddTask(obj) {
+    const { newTask, listID, taskID } = obj;
+    const newLists = this.state.lists.map(list => {
+      if (list.listID === listID) {
+        return { ...list, tasks: [...list.tasks, {task: newTask, id: taskID}]};
+      } else {
+        return list;
+      }
+    })
+    this.setState({ lists: newLists })
   }
   
-  handleDelete(id) {
-    this.setState( st => ({
-      tasks: st.tasks.filter(el => el.id !== id) 
+  handleDelete(obj) {
+    const { taskID, listID } = obj;
+
+    this.setState(st => ({
+      lists: st.lists.map(list => (
+        list.listID === listID ? {...list, tasks: list.tasks.filter(task => taskID !== task.id)} : list 
+      ))
     }))
   }
 
   handleUpdateTask(obj) {
-    const { task, id } = obj;
-    const newState = this.state.tasks.map(el => el.id === id ? {...el, task: task} : el );
-    this.setState({ tasks: newState })
+    const { listID, taskID } = obj;
+    const newTask = obj.task;
+    
+    this.setState( st => ({
+      lists: st.lists.map(list => (
+        list.listID === listID ? 
+        {...list, 
+          tasks: list.tasks.map(task => (
+            task.id === taskID ? 
+            {...task, task: newTask } : 
+            task
+          )) } : 
+        list
+      ))
+    }))
   }
 
   handleEditTitle(title, id) {
 
     console.log('handleEditTitle', title, id)
     this.setState( st => ({
-      tasks: st.tasks.map(el => el.id === id ? { ...el, title:title, titleCompleted: true }: el )
+      lists: st.lists.map(el => el.id === id ? { ...el, title:title, titleCompleted: true }: el )
     }) 
     )
   }
@@ -56,38 +81,75 @@ class ListContainer extends Component {
   handleToggleTitle(id) {
     console.log('handleToggleTitle', id)
     this.setState( st => ({
-      tasks: st.tasks.map(el => el.id === id ? { ...el, titleCompleted: false } : el )
+      tasks: st.lists.map(el => el.id === id ? { ...el, titleCompleted: false } : el )
     })
     )
   }
 
   render() {
-  
+
+/*     console.log(this.state)
+    let lists = [
+      {
+        title:'Title here...',
+        titleCompleted: true,
+        listID: 11,
+        tasks: [
+          { task: 'vacuum', id: uuid()}
+        ]
+      },
+      {
+        title:'Title here...',
+        titleCompleted: true,
+        listID: 22,
+        tasks: [
+          { task: 'praca', id: 221}
+        ]
+      } 
+     ];
+     console.log('LISTA', lists)
+     lists = lists.map(list => {
+       if (list.listID === 22) {
+         return list.tasks.map(task => {
+           if (task.id === 221) {
+             return {...task, task: 'praca JEST'}
+           }
+         })
+       } else {
+         return list;
+       }
+     })
+     console.log('LISTA 222', lists) */
+
+     console.log(this.state.lists)
+     console.log(this.state.lists[0].tasks)
+
+
+
     return (
       <div className='main-container'>
         <div className='singleList-container'>
           <TitleForm 
-            title={this.state.tasks[0].title}
+            title={this.state.lists[0].title}
             editTitle={this.handleEditTitle}
-            titleCompleted={this.state.tasks[0].titleCompleted}
-            key={this.state.tasks[0].id}
-            id={this.state.tasks[0].id}
+            titleCompleted={this.state.lists[0].titleCompleted}
+            key={this.state.lists[0].listID}
+            id={this.state.lists[0].listID}
             toggleTitleForm={this.handleToggleTitle}
           />
           <SingleList 
-            tasks={this.state.tasks}
-            // title='Home Works'
+            tasks={this.state.lists[0].tasks}
+            listID={this.state.lists[0].listID}
             deleteTask={this.handleDelete}
             updateTask={this.handleUpdateTask}
             // completed={this.handleCompleted}
           />
           <SingleForm 
             addTask={this.handleAddTask}
+            listID={this.state.lists[0].listID}
           />
         </div>
       </div>
-      
-
     );
   }
 }
