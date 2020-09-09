@@ -4,9 +4,44 @@
   width: 80%;
   height: 100%;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  /* display: flex; */
+  /* align-items: flex-start; */
+  /* justify-content: center; */
   padding-top: 5rem;
 
 }
+
+
+/******* CAROUSEL STYLES **********/
+
+.carousel-scene {
+  margin: 40px auto;
+  position: relative;
+  perspective: 1000px;
+  border: 1px solid black;
+}
+
+.carousel-carousel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  border: 1px dotted red;
+  transition: transform 1s;
+}
+
+.carousel-cell {
+  position: absolute;
+  /* left: 10px; */
+  /* top: 10px; */
+  border: 1px solid grey;
+  transition: transform 1s;
+}
+
+/* .carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(218px)}
+.carousel-cell:nth-child(2) { transform: rotateY(51.42deg) translateZ(218px)}
+.carousel-cell:nth-child(3) { transform: rotateY(102.85deg) translateZ(218px)}
+.carousel-cell:nth-child(4) { transform: rotateY(154.28deg) translateZ(218px)}
+.carousel-cell:nth-child(5) { transform: rotateY(205.71deg) translateZ(218px)}
+.carousel-cell:nth-child(6) { transform: rotateY( 257.14deg translateZ(218px))}
+.carousel-cell:nth-child(7) { transform: rotateY(308.57deg) translateZ(218px)} */
