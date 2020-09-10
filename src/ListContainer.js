@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SingleList from './SingleList';
 import SingleForm from './SingleForm';
 import TitleForm from './TitleForm';
+import selectCell from './selectCell';
 import uuid from 'uuid/v4';
 import './ListContainer.css';
 
@@ -17,7 +18,8 @@ class ListContainer extends Component {
           listID: uuid(),
           tasks: [
             { task: 'vacuum', id: uuid()}
-          ]
+          ],
+          isActive: false
         },
         {
           title:'Title 2 ...',
@@ -25,7 +27,8 @@ class ListContainer extends Component {
           listID: uuid(),
           tasks: [
             { task: 'Clean floor', id: uuid()}
-          ]
+          ],
+          isActive: false
         },
         {
           title:'Title 3 ...',
@@ -33,7 +36,8 @@ class ListContainer extends Component {
           listID: uuid(),
           tasks: [
             { task: 'Clean floor', id: uuid()}
-          ]
+          ],
+          isActive: false
         },
         {
           title:'Title 4 ...',
@@ -41,7 +45,8 @@ class ListContainer extends Component {
           listID: uuid(),
           tasks: [
             { task: 'Clean floor', id: uuid()}
-          ]
+          ],
+          isActive: false
         },
         {
           title:'Title 5 ...',
@@ -49,7 +54,8 @@ class ListContainer extends Component {
           listID: uuid(),
           tasks: [
             { task: 'Clean floor', id: uuid()}
-          ]
+          ],
+          isActive: false
         },
         {
           title:'Title 6 ...',
@@ -57,7 +63,8 @@ class ListContainer extends Component {
           listID: uuid(),
           tasks: [
             { task: 'Clean floor', id: uuid()}
-          ]
+          ],
+          isActive: false
         },
         {
           title:'Title 7 ...',
@@ -65,24 +72,34 @@ class ListContainer extends Component {
           listID: uuid(),
           tasks: [
             { task: 'Clean floor', id: uuid()}
-          ]
+          ],
+          isActive: false
         }
        ],
        rotateY: 0,
-
+       currentCell: {},
+       counter: 0,
     }
+
     this.handleAddTask = this.handleAddTask.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
     this.handleEditTitle = this.handleEditTitle.bind(this);
     this.handleToggleTitle = this.handleToggleTitle.bind(this);
+    this.handleToggleActivePanel = this.handleToggleActivePanel.bind(this);
   }
 
   static defaultProps = {
-    cellWidth: 210,
+    cellWidth: 390,
     cellHeight: 140, 
-    margin: 10,
-    backgroundColors: ['green', 'blue', 'red', 'black', 'maroon', 'orangered', 'navy']
+    margin: 5,
+    /* backgroundColors: ['rgba(0, 148, 50, 0.9)', 'rgba(255, 195, 18, 0.9)', 'rgba(27, 20, 100, 0.9)', 'rgba(234, 32, 39, 0.9)', 'rgba(111, 30, 81, 0.9)', 'rgba(163, 203, 56, 0.9)', 'rgba(234, 32, 39, 0.9)'], */
+    backgroundColors: ['green', 'rgb(255 255 0)', 'red', 'blue', 'maroon', 'orange', 'purple'],
+  }
+
+  componentDidMount() {
+    const cellData = selectCell(this.state.lists, this.props.backgroundColors);
+    this.setState({ currentCell: cellData[0] })
   }
 
   handleAddTask(obj) {
@@ -102,7 +119,8 @@ class ListContainer extends Component {
 
     this.setState(st => ({
       lists: st.lists.map(list => (
-        list.listID === listID ? {...list, tasks: list.tasks.filter(task => taskID !== task.id)} : list 
+        list.listID === listID ? {...list, tasks: list.tasks.filter(task => 
+          taskID !== task.id)} : list 
       ))
     }))
   }
@@ -147,8 +165,40 @@ class ListContainer extends Component {
   }
 
   handleCarousel(dir, deg) {
-    const res = this.state.rotateY + deg * dir;
-    this.setState({ rotateY: res})
+    
+    const cellData = selectCell(this.state.lists, this.props.backgroundColors);
+    const counter = (() => {
+      if (this.state.counter === 0 && dir === -1) {
+        return cellData.length - 1;
+      } else if (this.state.counter === cellData.length - 1 && dir === 1) {
+        console.log(this.state.counter, cellData.length)
+       return 0;
+      }
+      else {
+        return this.state.counter + (1 * dir);
+      }
+    })();
+    const rotate = this.state.rotateY - deg * dir;
+    console.log('DIR',dir)
+    console.log('CELL DATA', cellData.length)
+    console.log('COUNTER', counter, cellData[counter])
+
+    this.setState({ currentCell: cellData[counter], rotateY: rotate, counter: counter })
+    // counter = counter === 0 && dir === -1 ? 
+    //   cellData.length - 1 :
+    //   counter + (1 * dir) ;
+    
+    // console.log(counter)
+  }
+
+  handleToggleActivePanel() {
+    this.setState(st => ({
+      lists: st.lists.map(list => {
+        return list.listID === st.currentCell.listID ? 
+        {...list, isActive: !list.isActive } : 
+        list
+      }),
+    }))
   }
 
   render() {
@@ -167,21 +217,23 @@ class ListContainer extends Component {
 
     const lists = this.state.lists.map((list, i) => {
       rotateY = i * carouselData.degree;
-      const style = {
+
+      const cellStyle = {
         backgroundColor: `${this.props.backgroundColors[i]}`,
+        opacity: `${list.isActive ? 1 : 0.9 }`,
         width: `${this.props.cellWidth - (2 * this.props.margin)}px`,
         minHeight: `${this.props.cellHeight - (2 * this.props.margin)}px`,
         transform:
           `rotateY(${rotateY}deg) 
-          translateZ(${carouselData.translateZ()}px)`,
+          translateZ(${list.isActive ? carouselData.translateZ() + 200 : carouselData.translateZ() }px)` ,
         left: `${this.props.margin}px`, 
-        top: `${this.props.margin}px` 
+        top: `${this.props.margin}px`, 
       }
       // var tz = Math.round( ( cellSize / 2 ) /  Math.tan( Math.PI / numberOfCells ) );
 
       return(
-      <div className=' carousel-cell' style={style}>
-        {/* <div className='singleList-container'>
+      <div className=' carousel-cell'  style={cellStyle}>
+        <div className='singleList-container'>
           <TitleForm 
             title={list.title}
             editTitle={this.handleEditTitle}
@@ -202,7 +254,7 @@ class ListContainer extends Component {
             listID={list.listID}
           />
         </div>
-         */}
+        
       </div>
       )
     })
@@ -211,24 +263,36 @@ class ListContainer extends Component {
 
     return (
       <div className='main-container'>
-        <div className='carousel-scene' style={{
-          width:`${this.props.cellWidth}px`,
-          height: `${this.props.cellHeight}px`,
-          
+        <div className='nav'>
+          <div className='button-container'>
+            <button 
+              className='button-left' 
+              onClick={() => this.handleCarousel(-1, carouselData.degree)}
+            >left</button>
+            <button className='select-panel' onClick={() => this.handleToggleActivePanel()}>select</button>
+            <button 
+              className='button-right' 
+              onClick={() => this.handleCarousel(1, carouselData.degree)}
+            >right</button>
+          </div>
+        </div>
+        <div className='carousel-scene' 
+          style={{
+            width:`${this.props.cellWidth}px`,
+            height: `${this.props.cellHeight}px`,
           }}>
           <div className='carousel-carousel' 
             style={
-              {transform:`translateZ(-${carouselData.translateZ()}px) 
-              rotateY(${this.state.rotateY}deg)`}
+              {transform:
+                `translateZ(-${carouselData.translateZ()}px) 
+                rotateY(${this.state.rotateY}deg)`
+              }
             }
           >
             { lists } 
           </div>
         </div>
-        <div className='button-container'>
-          <button className='button-left' onClick={() => this.handleCarousel(-1, carouselData.degree)}>left</button>
-          <button className='button-right' onClick={() => this.handleCarousel(1, carouselData.degree)}>right</button>
-        </div>
+        
       </div>
     );
   }

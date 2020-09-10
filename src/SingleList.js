@@ -7,7 +7,6 @@ class SingleList extends Component {
 
   render() {
     const { tasks, listID } = this.props;
-    console.log(this.props)
     return(
       <div className='SingleList'>
         {/* <h1>{title} <span>A simple React List App</span></h1> */}

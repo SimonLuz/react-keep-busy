@@ -6,6 +6,7 @@
   padding: var(--padding-main);
   margin-bottom: .1rem;
   font-size: 0.8rem;
+  backface-visibility: hidden;
 }
 
 .SingleForm form {
