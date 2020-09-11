@@ -251,6 +251,7 @@ class ListContainer extends Component {
     return (
       <div className='main-container'>
         <div className='nav'>
+          <h1 style={{color: `${this.state.currentCell.color}`}}>React - Keep-Me-Busy App</h1>
           <div className='button-container'>
             <button 
               className='btn button-left' 
