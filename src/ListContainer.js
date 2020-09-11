@@ -93,8 +93,7 @@ class ListContainer extends Component {
     cellWidth: 390,
     cellHeight: 140, 
     margin: 5,
-    /* backgroundColors: ['rgba(0, 148, 50, 0.9)', 'rgba(255, 195, 18, 0.9)', 'rgba(27, 20, 100, 0.9)', 'rgba(234, 32, 39, 0.9)', 'rgba(111, 30, 81, 0.9)', 'rgba(163, 203, 56, 0.9)', 'rgba(234, 32, 39, 0.9)'], */
-    backgroundColors: ['green', 'rgb(255 255 0)', 'red', 'blue', 'maroon', 'orange', 'purple'],
+    backgroundColors: ['green', '#ffcd00', 'red', 'blue', 'maroon', 'orange', 'purple'],
   }
 
   componentDidMount() {
@@ -144,7 +143,6 @@ class ListContainer extends Component {
   }
 
   handleEditTitle(title, id) {
-    console.log('handleEditTitle', title, id)
     this.setState( st => ({
       lists: st.lists.map(el => el.listID === id ? { ...el, title:title, titleCompleted: true }: el )
     }) 
@@ -165,30 +163,19 @@ class ListContainer extends Component {
   }
 
   handleCarousel(dir, deg) {
-    
     const cellData = selectCell(this.state.lists, this.props.backgroundColors);
     const counter = (() => {
       if (this.state.counter === 0 && dir === -1) {
         return cellData.length - 1;
       } else if (this.state.counter === cellData.length - 1 && dir === 1) {
-        console.log(this.state.counter, cellData.length)
        return 0;
-      }
-      else {
+      } else {
         return this.state.counter + (1 * dir);
       }
     })();
     const rotate = this.state.rotateY - deg * dir;
-    console.log('DIR',dir)
-    console.log('CELL DATA', cellData.length)
-    console.log('COUNTER', counter, cellData[counter])
-
-    this.setState({ currentCell: cellData[counter], rotateY: rotate, counter: counter })
-    // counter = counter === 0 && dir === -1 ? 
-    //   cellData.length - 1 :
-    //   counter + (1 * dir) ;
     
-    // console.log(counter)
+    this.setState({ currentCell: cellData[counter], rotateY: rotate, counter: counter })
   }
 
   handleToggleActivePanel() {
@@ -229,7 +216,7 @@ class ListContainer extends Component {
         left: `${this.props.margin}px`, 
         top: `${this.props.margin}px`, 
       }
-      // var tz = Math.round( ( cellSize / 2 ) /  Math.tan( Math.PI / numberOfCells ) );
+    
 
       return(
       <div className=' carousel-cell'  style={cellStyle}>
@@ -266,14 +253,14 @@ class ListContainer extends Component {
         <div className='nav'>
           <div className='button-container'>
             <button 
-              className='button-left' 
+              className='btn button-left' 
               onClick={() => this.handleCarousel(-1, carouselData.degree)}
-            >left</button>
-            <button className='select-panel' onClick={() => this.handleToggleActivePanel()}>select</button>
+            ><i className="fas fa-angle-double-left" style={{color: `${this.state.currentCell.color}`}}></i></button>
+            <button className='btn select-panel' onClick={() => this.handleToggleActivePanel()}><i className="fas fa-check-circle" style={{color: `${this.state.currentCell.color}`}}></i></button>
             <button 
-              className='button-right' 
+              className='btn button-right' 
               onClick={() => this.handleCarousel(1, carouselData.degree)}
-            >right</button>
+            ><i className="fas fa-angle-double-right" style={{color: `${this.state.currentCell.color}`}}></i></button>
           </div>
         </div>
         <div className='carousel-scene' 

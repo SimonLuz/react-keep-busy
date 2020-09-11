@@ -16,9 +16,9 @@
 body {
   height: 100%;
   background-image: linear-gradient(to right, 
-    rgb(171, 171, 179),
-    rgb(106, 160, 106),
-    rgb(241, 190, 199)
+    rgb(214, 214, 214),
+    rgb(197, 204, 197),
+    rgb(238, 232, 233)
   );
   font-family: 'Quicksand', sans-serif;  
   color: #fff;

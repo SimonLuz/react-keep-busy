@@ -4,13 +4,42 @@
   width: 80%;
   height: 100%;
   margin: 0 auto;
-  /* display: flex; */
-  /* align-items: flex-start; */
-  /* justify-content: center; */
   padding-top: 5rem;
 
 }
 
+
+/******** NAV BUTTON STYLES *******/
+.button-container {
+  width: 200px;
+  height: 4rem;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn:focus,
+.btn:active {
+  outline: none;
+}
+
+.btn i {
+  transform: scale(1);
+  transition: color 0.8s;
+  font-size: 2.5rem;
+}
+
+.btn i:hover {
+  transform: scale(1.1);
+
+}
 
 /******* CAROUSEL STYLES **********/
 
@@ -18,7 +47,7 @@
   margin: 40px auto;
   position: relative;
   perspective: 1000px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .carousel-carousel {
@@ -32,8 +61,5 @@
 
 .carousel-cell {
   position: absolute;
-  /* left: 10px; */
-  /* top: 10px; */
-  border: 1px solid grey;
   transition: transform 1s;
 }

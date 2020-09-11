@@ -23,6 +23,10 @@
   opacity: 0.6;
 }
 
+.task:hover {
+  cursor: pointer;
+}
+
 .completed::before {
   content:'';
   position: absolute;
